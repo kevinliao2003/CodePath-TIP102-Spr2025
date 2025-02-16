@@ -292,3 +292,116 @@ def squash_spaces(s):
 # s = "With great power comes great responsibility."
 # res = squash_spaces(s)
 # print(res == "With great power comes great responsibility.")
+
+# Advanced Problem Set Version 2 - Problem 4: Two-Pointer Two Sum
+"""
+U - Understand
+- return the indices of the 2 numbers that add up to target
+- each input has one unique solution
+- an element may not be used to twice
+- nums is guaranteed to be sorted
+- return indices in any order
+
+P - Plan
+variables:
+- left pointer (index 0)
+- right pointer (last index)
+
+while left < right
+    get sum of 2 values
+    if greater than target
+        decrement right
+    if less than target
+        increment left
+    else
+        return the indices in a list
+
+I - Implement
+- see code below.
+"""
+
+def two_sum(nums, target):
+    n = len(nums)
+    l, r = 0, n - 1
+    while l < r:
+        total = nums[l] + nums[r]
+        if total == target:
+            return [l, r]
+        elif total > target:
+            r -= 1
+        else:
+            l += 1
+
+# nums = [2, 7, 11, 15]
+# target = 9
+# res = two_sum(nums, target)
+# print(res == [0, 1])
+
+# nums = [2, 7, 11, 15]
+# target = 18
+# res = two_sum(nums, target)
+# print(res == [1, 2])
+
+# Advanced Problem Set Version 2 - Problem 6: Insert Interval
+"""
+U - Understand
+- intervals sorted in ascending order by start time (non-overlapping)
+- insert the new interval and still maintain the order
+- ok to create new arrays
+
+P - Plan
+variables:
+- res (new intervals to return)
+- new_start, new_end (new start and end time of new interval)
+
+loop through intervals
+    if the start of the current interval < new_end
+        add the new interval to res
+    if the current interval and new interval aren't overlapping
+        add current interval to res
+    else
+        set new_start to min(current start, new_interval[0])
+        set new_end to max(current end, new_interval[1])
+return res
+
+I - Implement
+- see code below
+"""
+
+def insert_interval(intervals, new_interval):
+    res = [] # new interval to return
+
+    # check if 2 intervals are overlapping
+    def overlapping(start1, end1, start2, end2):
+        return (start1 <= start2 <= end1 or start1 <= end2 <= end1
+                or start2 <= start1 <= end2 or start2 <= end1 <= end2)
+
+    for i, [start, end] in enumerate(intervals):
+        # print('before', start, end, new_interval)
+        
+        # check for overlapping intervals
+        if overlapping(start, end, new_interval[0], new_interval[1]):
+            new_interval[0] = min(start, new_interval[0])
+            new_interval[1] = max(end, new_interval[1])
+            # print('overlapping', start, end, new_interval)
+            continue
+        if start > new_interval[1]:
+            # print('new_interval appended', new_interval)
+            res.append(new_interval)
+        
+        
+        res.append(intervals[i])
+        # print('after', new_interval)
+    
+    return res
+
+# intervals = [[1, 3], [6, 9]]
+# new_interval = [2, 5]
+# res = insert_interval(intervals, new_interval)
+# print(res)
+# print(res == [[1, 5], [6, 9]])
+# intervals = [[1, 2], [3, 5], [6, 7], [8, 10], [12, 16]]
+# new_interval = [4, 8]
+# res = insert_interval(intervals, new_interval)
+# print(res)
+# print(res == [[1, 2], [3, 10], [12, 16]])
