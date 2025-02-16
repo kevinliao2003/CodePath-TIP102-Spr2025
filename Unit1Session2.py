@@ -138,10 +138,157 @@ def transpose(matrix):
 #     [3, 6]
 # ])
 
-# TO DO
-
 # Advanced Problem Set Version 1 - Problem 2: Two-Pointer Reverse List
 
 # Advanced Problem Set Version 1 - Problem 5: Container with Most Honey
 
 # Advanced Problem Set Version 1 - Problem 6: Merge Intervals
+
+# Advanced Problem Set Version 2 - Problem 1: Matrix Addition
+"""
+U - Understand
+- are both matrices guaranteed to have the same dimensions?
+- function should return an n * m matrix
+
+P - Plan
+variables:
+- new_matrix (n * m)
+
+loop through the rows and cols
+    add the values in the 2 matrices and set that new value to the curr_pos in new_matrix
+return new_matrix
+
+I - Implement
+- see code below
+"""
+
+def add_matrices(matrix1, matrix2):
+    ROWS, COLS = len(matrix1), len(matrix1[0])
+    new_matrix = [[0] * COLS for row in range(ROWS)]
+
+    for row in range(ROWS):
+        for col in range(COLS):
+            new_matrix[row][col] = matrix1[row][col] + matrix2[row][col]
+    return new_matrix
+
+# matrix1 = [
+#     [1, 2, 3],
+#     [4, 5, 6],
+#     [7, 8, 9]
+# ]
+
+# matrix2 = [
+#     [9, 8, 7],
+#     [6, 5, 4],
+#     [3, 2, 1]
+# ]
+
+# res = add_matrices(matrix1, matrix2)
+# print(res == [
+#     [10, 10, 10],
+#     [10, 10, 10],
+#     [10, 10, 10]
+# ])
+
+# Advanced Problem Set Version 2 - Problem 2: Two-Pointer Palindrome
+"""
+U - Understand
+- string consists of only lowercase alphabetic characters
+- can the string be empty?
+
+P - Plan
+variables:
+- left pointer
+- right pointer
+
+while left <= right
+    if the chars at two pos are NOT equal
+        return false
+    otherwise
+        increment left
+        increment right
+return True
+
+I - Implement
+- see code below
+"""
+
+def is_palindrome(s):
+    l, r = 0, len(s) - 1
+    while l <= r:
+        if s[l] != s[r]:
+            return False
+        l += 1
+        r -= 1
+    
+    return True
+
+# s = "madam"
+# res = is_palindrome(s)
+# print(res == True)
+
+# s = "madamweb"
+# is_palindrome(s)
+# res = is_palindrome(s)
+# print(res == False)
+
+# Advanced Problem Set Version 2 - Problem 3: Squash Spaces
+"""
+U - Understand
+- can the string be empty?
+- can the string only consist of lower and uppercase letters?
+
+P - Plan
+variables:
+- curr_idx: int
+- new_str: str
+- leading_spaces: bool
+
+increment curr_idx if there are leading spaces
+while curr_idx is in bounds
+    if the curr char is NOT a space
+        if leading_spaces is true
+            add a single space to new_str
+            set leading_zeros to false
+        add the curr char to new_str
+    else if the curr char is a space
+        set leading_zeros to true
+    
+    increment curr_idx
+
+I - Implement
+- see code below
+"""
+
+def squash_spaces(s):
+    n = len(s)
+    curr_idx = 0
+    new_str = ""
+    leading_spaces = False
+
+    # trailing spaces
+    while curr_idx < n:
+        if s[curr_idx] == ' ':
+            curr_idx += 1
+        else:
+            break
+
+    while curr_idx < n:
+        if s[curr_idx] != ' ':
+            if leading_spaces:
+                new_str += ' '
+                leading_spaces = False
+            new_str += s[curr_idx]
+        else:
+            leading_spaces = True
+        
+        curr_idx += 1
+    
+    return new_str
+
+# s = "   Up,     up,   and  away! "
+# res = squash_spaces(s)
+# print(res == "Up, up, and away!")
+# s = "With great power comes great responsibility."
+# res = squash_spaces(s)
+# print(res == "With great power comes great responsibility.")
