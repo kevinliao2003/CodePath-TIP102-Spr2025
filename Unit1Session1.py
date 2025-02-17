@@ -115,3 +115,58 @@ def diagonal_sum(grid):
 # ]
 # res = diagonal_sum(grid)
 # print(res == 5)
+
+# Advanced Problem Set Version 2 - Problem 8: Local Maximums
+"""
+U - Understand
+- matrix is guaranteed to be a square
+- elements are guaranteed to be ints
+
+P - Plan
+variables
+- new matrix ((n - 2) * (n - 2))
+
+loop through original matrix
+    check the elements in the next 2 rows and cols
+    update the val at current index in new matrix with the max value
+return new matrix
+
+I - Implement
+- see code below
+"""
+
+def local_maximums(grid):
+    ROWS, COLS = len(grid), len(grid[0])
+    new_matrix = [[0] * (COLS - 2) for row in range(ROWS - 2)]
+
+    for row in range(ROWS - 2):
+        for col in range(COLS - 2):
+            # print(row, col)
+            # check 3 x 3 matrix
+            curr_max = grid[row][col]
+            for row2 in range(row, row + 3):
+                for col2 in range(col, col + 3):
+                    curr_max = max(curr_max, grid[row2][col2])
+            
+            new_matrix[row][col] = curr_max
+
+    return new_matrix
+
+# grid = [
+# 	[9, 9, 8, 1],
+# 	[5, 6, 2, 6],
+# 	[8, 2, 6, 4],
+# 	[6, 2, 2, 2]
+# ]
+# res = local_maximums(grid)
+# print(res)
+# print(res == [[9, 9], [8, 6]])
+# grid = [
+# 	[1, 1, 1, 1, 1],
+# 	[1, 1, 1, 1, 1],
+# 	[1, 1, 2, 1, 1],
+# 	[1, 1, 1, 1, 1],
+# 	[1, 1, 1, 1, 1]
+# ]
+# res = local_maximums(grid)
+# print(res == [[2, 2, 2], [2, 2, 2], [2, 2, 2]])
