@@ -37,3 +37,51 @@ res = (remove_duplicate_shows("azxxzy"))
 assert res == "ay"
 
 # Advanced Problem Set Version 1 - Problem 1: Arrange Guest Arrival Order
+"""
+U - Understand
+- string can only consits of 'I' and 'D'
+- string can't be empty
+
+P - Plan
+- greedy approach using a stack
+variables:
+- stack
+- num (smallest num)
+- res (answer to return)
+
+iterate over string
+    stringify num and add it to the stack
+    increment num
+
+    if i is the last index or the current char is 'I'
+        pop from the stack and append the value to res
+
+stringify res and return it
+
+I - Implement
+- see code below
+"""
+
+def arrange_guest_arrival_order(arrival_pattern):
+    n = len(arrival_pattern)
+    stack, res = [], []
+    num = 1 # current smallest num
+
+    for i in range(n + 1):
+        stack.append(str(num))
+        num += 1
+
+        if i == len(arrival_pattern) or arrival_pattern[i] == 'I':
+            while stack:
+                res.append(stack.pop())
+
+    # pop remaining elements
+    while stack:
+        res.append(stack.pop())
+    return ''.join(res)
+
+res = arrange_guest_arrival_order("IIIDIDDD")
+# print(res)
+assert res == "123549876"
+res = arrange_guest_arrival_order("DDD")
+assert res == "4321"
