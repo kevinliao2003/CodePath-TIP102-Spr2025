@@ -50,3 +50,60 @@ letters = ['a', 'a', 'b', 'c', 'c', 'c', 'e', 'h', 'w']
 assert next_greatest_letter(letters, 'a') == 'b'
 assert next_greatest_letter(letters, 'd') == 'e'
 assert next_greatest_letter(letters, 'y') == 'a'
+
+# Advanced Problem Set Version 2 - Problem 2: Concert Ticket Search II
+def find_affordable_ticket(prices, budget):
+    """
+    U - Understand
+    - find a concert ticket closed to the target
+    - prices is sorted in increasing order
+    - algo must run in O(logn) time
+    - price must not be greater than the budget
+    - return -1 if no ticket is found
+
+    M - Match
+    - binary search
+
+    P - Plan
+    variables:
+    - l (left pointer) to 0
+    - r (right pointer) to last index
+    - res_idx, res_num
+
+    while l < r
+        get middle index (m)
+        if m is less than target and the diff is less or equal to than the diff between res_num and target
+            update res_num
+            update res_idx
+            set r to m
+        else
+            set l to m + 1
+
+    return res_idx
+
+    I - Implement
+    - see code below
+
+    R - Review
+    - see test cases below
+
+    E - Evaluate
+    """
+
+    l, r = 0, len(prices) - 1
+    res_idx = -1 # if no ticket is found, return -1
+
+    while l < r:
+        m = (l + r) // 2
+        if prices[m] == budget:
+            return m
+        elif prices[m] < budget:
+            res_idx = m
+            l = m + 1
+        else:
+            r = m
+
+    return res_idx
+
+res = find_affordable_ticket([50, 75, 100, 150], 90)
+assert res == 1
