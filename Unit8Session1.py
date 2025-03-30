@@ -69,9 +69,10 @@ def right_vine(root):
 # ivy1 = TreeNode("Root", 
 #             TreeNode("Node1", TreeNode("Leaf1")),
 #                         TreeNode("Node2", TreeNode("Leaf2", TreeNode("Leaf3"))))
-# res = right_vine(ivy1)
+ivy1 = TreeNode("Root", TreeNode("Node1", TreeNode("Leaf1")), TreeNode("Node2", TreeNode("Leaf2"), TreeNode("Leaf3")))
+res = right_vine(ivy1)
 # # print(res)
-# assert res == ['Root', 'Node2', 'Leaf3']
+assert res == ['Root', 'Node2', 'Leaf3']
 ivy2 = TreeNode("Root", TreeNode("Node1", TreeNode("Leaf1")))
 res = right_vine(ivy2)
 assert res == ['Root']
