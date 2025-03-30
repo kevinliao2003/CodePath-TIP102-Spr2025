@@ -66,12 +66,70 @@ def right_vine(root):
 
     return result
 
-ivy1 = TreeNode("Root", 
-            TreeNode("Node1", TreeNode("Leaf1")),
-                        TreeNode("Node2", TreeNode("Leaf2", TreeNode("Leaf3"))))
-res = right_vine(ivy1)
-# print(res)
-assert res == ['Root', 'Node2', 'Leaf3']
+# ivy1 = TreeNode("Root", 
+#             TreeNode("Node1", TreeNode("Leaf1")),
+#                         TreeNode("Node2", TreeNode("Leaf2", TreeNode("Leaf3"))))
+# res = right_vine(ivy1)
+# # print(res)
+# assert res == ['Root', 'Node2', 'Leaf3']
 ivy2 = TreeNode("Root", TreeNode("Node1", TreeNode("Leaf1")))
 res = right_vine(ivy2)
 assert res == ['Root']
+
+# Advanced Problem Set Version 1 - Problem 6: Plant Classifications
+def get_most_specific(taxonomy):
+    """
+    U - Understand
+    - return an array with the most specific plant classification categories (or left nodes)
+    - a leaf node is a node without any children
+    - root node is valid?
+
+    M - Match
+    - dfs, bfs
+
+    P - Plan
+    variables:
+        - res (list to return)
+
+    def dfs(curr)
+        parameters:
+            curr
+
+        if curr is valid and has no children
+            add it to res
+            return
+
+        recursve left and right
+
+    call dfs
+    return res
+    
+    I - Implement
+    - see code below
+
+    R - Review
+    - see test cases below
+
+    E - Evaluate
+    - TC: O(n) where n is the number of nodes in the tree
+    - SC: O(n)
+    """
+
+    res = [] # list to return
+    def dfs(curr):
+        if curr and not curr.left and not curr.right:
+            res.append(curr.val)
+            return
+
+        dfs(curr.left)
+        dfs(curr.right)
+
+    dfs(taxonomy)
+    return res
+
+plant_taxonomy = TreeNode("Plantae", 
+                          TreeNode("Non-flowering", TreeNode("Mosses"), TreeNode("Ferns")),
+                                  TreeNode("Flowering", TreeNode("Gymnosperms"), 
+                                          TreeNode("Angiosperms", TreeNode("Monocots"), TreeNode("Dicots"))))
+res = get_most_specific(plant_taxonomy)
+assert res == ['Mosses', 'Ferns', 'Gymnosperms', 'Monocots', 'Dicots']
