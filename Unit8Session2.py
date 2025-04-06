@@ -72,29 +72,19 @@ def find_flower(inventory, name):
     - SC: O(n)
     """
 
-    # def dfs(curr):
-    #     if curr:
-    #         print(curr.val)
-    #     if curr and curr.val == name:
-    #         return True
-    #     elif curr and curr.val > name:
-    #         return dfs(curr.left)
-    #     elif curr and curr.val < name:
-    #         return dfs(curr.right)
-    #     else:
-    #         return False
+    def dfs(curr):
+        if curr:
+            print(curr.val)
+        if curr and curr.val == name:
+            return True
+        elif curr and curr.val > name:
+            return dfs(curr.left)
+        elif curr and curr.val < name:
+            return dfs(curr.right)
+        else:
+            return False
         
-    # return dfs(inventory)
-
-    if inventory is None:
-        return False
-    
-    if inventory.val == name:
-        return True
-    elif name < inventory.val:
-        return find_flower(inventory.left, name)
-    else:
-        return find_flower(inventory.right, name)
+    return dfs(inventory)
 
 # using build_tree() function at top of page
 values = ["Rose", "Lily", "Tulip", "Daisy", "Lilac", None, "Violet"]
