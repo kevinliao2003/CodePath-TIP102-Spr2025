@@ -98,6 +98,8 @@ def num_airline_regions(is_connected):
     - see test cases below
 
     E - Evaluate
+    - TC: O(n) where n is the number of airlines
+    - SC: O(n) for the recursive call stack
     """
 
     n = len(is_connected)
